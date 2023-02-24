@@ -32,6 +32,15 @@ describe("Escrow", () => {
       inspector.address,
       lender.address
     );
+
+    //Approve property
+    transaction=await realEstate.connect(seller).approve(escrow.address,1);
+    await transaction.wait();
+
+    //list property
+    transaction=await escrow.connect(seller).list(1);
+    await transaction.wait();
+
   });
   describe("Deployment", () => {
     it("Returns NFT Address", async () => {
