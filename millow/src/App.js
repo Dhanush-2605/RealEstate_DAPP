@@ -17,8 +17,8 @@ function App() {
   const [provider, setProvider] = useState(null);
   const [escrow, setEscrow] = useState(null);
   const [homes,setHomes]=useState([]);
-  const [home,setHome]=useState()
-  const [toogle,setToogle]=useEffect(false)
+  const [home,setHome]=useState({})
+  const [toggle,setToggle]=useState(false)
   const loadBlockChainData = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     setProvider(provider);
@@ -71,10 +71,11 @@ function App() {
     loadBlockChainData();
   }, []);
 
-  const toogleProp=(home)=>{
+  const togglePop=(home)=>{
     console.log(home)
+    console.log("kfsldf")
     setHome(home)
-    toogle?setToogle(false):setToogle(true)
+    toggle?setToggle(false):setToggle(true)
 
   }
   return (
@@ -86,7 +87,7 @@ function App() {
         <hr />
         <div className="cards">
         {homes.map((home,ind)=>(
-          <div className="card" key={ind} onClick={()=>toogleProp(home)}>
+          <div className="card" key={ind} onClick={()=>togglePop(home)}>
             <div className="card__image">
               <img src={home.image} alt="home" />
             </div>
@@ -105,8 +106,8 @@ function App() {
 
         </div>
 
-        {toogle &&(
-          <Home/>
+        {toggle && (
+          <Home home={home} provider={provider} account={account} escrow={escrow} togglePop={togglePop} />
         )}
       </div>
     </div>
